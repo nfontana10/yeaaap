@@ -3,6 +3,7 @@
     <h1 class="title">YEAAAAAAAAP!</h1>
     <div class="crazy_images">
       <div class="left">
+        <h2 class="meet_our_founders">Meet Our Founders...</h2>
         <div class="menu_left">
           <img class="nick" alt="nick" src="../assets/nick.jpg"/>
           <p class="quote">Only now is the child finally divested of all that he has been. His origins are become remote as is his destiny and not again in all the world's turning will there be terrains so wild and barbarous to try whether the stuff of creation may be shaped to man's will or whether his own heart is not another kind of clay.</p>
@@ -73,7 +74,8 @@ export default {
 }
 .menu_left,
 .menu_right {
-  height: 200px;
+  min-height: 200px;
+  margin-bottom: 20px;
 }
 .menu_left img {
   float: left;
