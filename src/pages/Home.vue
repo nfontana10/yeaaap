@@ -22,7 +22,11 @@
       </div>  
       
     </div>
-
+    <div>
+      <button @click="counter += 1;play()">Yeaaap!</button>
+      <p>You have yeappped {{ counter }} times.</p>
+      <!-- <audio ref="audioElm" src="require(../assets/yeap_sound.mp3)"></audio> -->
+    </div>
     
   </div>
 </template>
@@ -32,6 +36,18 @@ export default {
   name: 'Home',
   props: {
     msg: String
+  },
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    play() {
+      var audio = new Audio(require('../assets/yeap_sound.mp3'));
+      audio.play();
+    }
+
   }
 }
 </script>
