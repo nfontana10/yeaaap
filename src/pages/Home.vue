@@ -110,5 +110,8 @@ export default {
 .henry {
   border: 2px solid #000000;
   width: 100px;
+  filter: gray;
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
 }
 </style>
