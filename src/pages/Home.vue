@@ -45,7 +45,6 @@ export default {
       var audio = new Audio(require('../assets/yeap_sound.mp3'));
       audio.play();
     }
-
   }
 }
 </script>
@@ -98,16 +97,17 @@ $break-quote: 450px;
       -webkit-filter: grayscale(1);
       filter: grayscale(1);
       
-      &:hover{
-        /* Start the shake animation and make the animation last for 0.5 seconds */
-        animation: shake 0.5s;
+      &:hover,
+      &:focus {
+        animation: shake 0.5s infinite;
+        -webkit-animation: shake 0.5s infinite;
       }
     }
 
     .menu_left,
     .menu_right {
       min-height: 200px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
 
       img {
         @media screen and (max-width: $break-quote) {
