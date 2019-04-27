@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,21 +23,28 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .beer_corner {
   position: absolute;
-  top: 0;
+  top: 10px;
   width: 100%;
-}
-.beer_corner img {
-  height: 100px;
-}
-.beer_corner .right {
-  float: right;
-  padding-right: 20px;
-}
+  z-index: -10;
 
-.beer_corner .left {
-  float: left;
-}
+  @media screen and (max-width: 500px) {
+    opacity: 0.25;
+  }
 
+  img {
+    height: 90px;
+  }
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
+    padding-right: 20px;
+  }
+}
 </style>

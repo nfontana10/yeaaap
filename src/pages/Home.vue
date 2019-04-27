@@ -19,15 +19,13 @@
       </div>
       <div class="right">
         <img class="main_image" alt="zati" src="../assets/zati.jpg"/>
-      </div>  
-      
+      </div>
     </div>
     <div>
       <button @click="counter += 1;play()">Yeaaap!</button>
       <p>You have yeappped {{ counter }} times.</p>
       <!-- <audio ref="audioElm" src="require(../assets/yeap_sound.mp3)"></audio> -->
     </div>
-    
   </div>
 </template>
 
@@ -54,6 +52,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+// Variables
+$break-menu: 700px;
+$break-quote: 450px;
+
+// Animations
 @keyframes shake {
   0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -74,10 +78,18 @@ export default {
 }
 
 .crazy_images {
+  padding: 0 40px;
+  overflow: auto;
+
   .left {
-    width: 40%;
     float: left;
-    margin-left: 50px;
+    width: 45%;
+    margin-right: 40px;
+
+    @media screen and (max-width: $break-menu) {
+      float: none;
+      width: 100%;
+    }
 
     img {
       border: 2px solid #000000;
@@ -92,10 +104,25 @@ export default {
       }
     }
 
-    .menu_left {
+    .menu_left,
+    .menu_right {
       min-height: 200px;
       margin-bottom: 20px;
 
+      img {
+        @media screen and (max-width: $break-quote) {
+          float: none !important;
+        }
+      }
+
+      .quote {
+        @media screen and (max-width: $break-quote) {
+          margin: 10px 0 30px 0 !important;
+        }
+      }
+    }
+
+    .menu_left {
       img {
         float: left;
       }
@@ -106,16 +133,23 @@ export default {
     }
 
     .menu_right {
-      min-height: 200px;
-      margin-bottom: 20px;
-
       img {
         float: right;
       }
 
       .quote {
-        margin-left: 120px;
+        margin-right: 120px;
       }
+    }
+  }
+
+  .right {
+    float: right;
+    width: 45%;
+
+    @media screen and (max-width: $break-menu) {
+      float: none;
+      width: 100%;
     }
   }
 }
