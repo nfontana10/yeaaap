@@ -1,29 +1,15 @@
-# hello-world
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Project setup
-```
-npm install
-```
+## Getting Started
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+First, run the development server:
+
+```bash
+npm run dev
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Run your tests
-```
-npm run test
-```
+## Deploy on Vercel
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This app will be automatically deployed on Vercel when changes are pushed to the github repo.
