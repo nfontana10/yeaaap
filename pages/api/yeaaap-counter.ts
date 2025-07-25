@@ -1,52 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import fs from 'fs'
-import path from 'path'
 
-const COUNTER_FILE = path.join(process.cwd(), 'data', 'yeaaap-counter.json')
-
-// Ensure data directory exists
-const ensureDataDir = () => {
-  const dataDir = path.dirname(COUNTER_FILE)
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true })
-  }
-}
-
-// Read current counter
-const readCounter = (): number => {
-  try {
-    ensureDataDir()
-    if (fs.existsSync(COUNTER_FILE)) {
-      const data = fs.readFileSync(COUNTER_FILE, 'utf8')
-      return JSON.parse(data).count || 0
-    }
-  } catch (error) {
-    console.error('Error reading counter:', error)
-  }
-  return 0
-}
-
-// Write counter to file
-const writeCounter = (count: number) => {
-  try {
-    ensureDataDir()
-    fs.writeFileSync(COUNTER_FILE, JSON.stringify({ count, lastUpdated: new Date().toISOString() }))
-  } catch (error) {
-    console.error('Error writing counter:', error)
-  }
-}
+// In-memory counter for demo purposes
+// In production, you'd want to use a proper database
+let globalCounter = 0
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     // Get current global count
-    const count = readCounter()
-    res.status(200).json({ count })
+    res.status(200).json({ count: globalCounter })
   } else if (req.method === 'POST') {
     // Increment global count
-    const currentCount = readCounter()
-    const newCount = currentCount + 1
-    writeCounter(newCount)
-    res.status(200).json({ count: newCount })
+    globalCounter += 1
+    res.status(200).json({ count: globalCounter })
   } else {
     res.setHeader('Allow', ['GET', 'POST'])
     res.status(405).end(`Method ${req.method} Not Allowed`)
