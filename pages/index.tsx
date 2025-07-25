@@ -16,66 +16,35 @@ const useYeaaapSound = (increaseCounter: Function) => {
 const useYeaaapCounter = () => {
   const [yeaaapCount, updateYeaaapCount] = useState(0)
   const [globalCount, setGlobalCount] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
 
-  // Fetch global count on component mount
+  // Load counts on component mount
   useEffect(() => {
-    fetchGlobalCount()
+    const storedLocal = localStorage.getItem('localYeaaapCount')
+    const storedGlobal = localStorage.getItem('globalYeaaapCount')
+    
+    if (storedLocal) {
+      updateYeaaapCount(parseInt(storedLocal))
+    }
+    if (storedGlobal) {
+      setGlobalCount(parseInt(storedGlobal))
+    }
   }, [])
 
-  const fetchGlobalCount = async () => {
-    try {
-      // Try to fetch from API first
-      const response = await fetch('/api/yeaaap-counter')
-      if (response.ok) {
-        const data = await response.json()
-        setGlobalCount(data.count)
-      } else {
-        // Fallback to localStorage
-        const stored = localStorage.getItem('globalYeaaapCount')
-        setGlobalCount(stored ? parseInt(stored) : 0)
-      }
-    } catch (error) {
-      console.error('Error fetching global count:', error)
-      // Fallback to localStorage
-      const stored = localStorage.getItem('globalYeaaapCount')
-      setGlobalCount(stored ? parseInt(stored) : 0)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const increaseCount = async () => {
+  const increaseCount = () => {
     const newLocalCount = yeaaapCount + 1
-    updateYeaaapCount(newLocalCount)
+    const newGlobalCount = globalCount + 1
     
-    // Update global count
-    try {
-      const response = await fetch('/api/yeaaap-counter', {
-        method: 'POST',
-      })
-      if (response.ok) {
-        const data = await response.json()
-        setGlobalCount(data.count)
-      } else {
-        // Fallback: increment local storage
-        const currentGlobal = globalCount + 1
-        setGlobalCount(currentGlobal)
-        localStorage.setItem('globalYeaaapCount', currentGlobal.toString())
-      }
-    } catch (error) {
-      console.error('Error updating global count:', error)
-      // Fallback: increment local storage
-      const currentGlobal = globalCount + 1
-      setGlobalCount(currentGlobal)
-      localStorage.setItem('globalYeaaapCount', currentGlobal.toString())
-    }
+    updateYeaaapCount(newLocalCount)
+    setGlobalCount(newGlobalCount)
+    
+    // Save to localStorage
+    localStorage.setItem('localYeaaapCount', newLocalCount.toString())
+    localStorage.setItem('globalYeaaapCount', newGlobalCount.toString())
   }
 
   return {
     count: yeaaapCount,
     globalCount,
-    isLoading,
     increase: increaseCount,
   }
 }
@@ -127,11 +96,7 @@ export default function Home() {
         <div>
           <button onClick={yeaaapSound.play}>Yeaaap!</button>
           <p>You have yeappped {yeaaapCounter.count} times.</p>
-          {yeaaapCounter.isLoading ? (
-            <p>Loading global count...</p>
-          ) : (
-            <p>🌍 Global yeaaaps: {yeaaapCounter.globalCount.toLocaleString()}</p>
-          )}
+          <p>🌍 Global yeaaaps: {yeaaapCounter.globalCount.toLocaleString()}</p>
           <audio src="require(../assets/yeap_sound.mp3)"></audio>
         </div>
       </div>
