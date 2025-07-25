@@ -2,10 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Ensure API routes work properly
-  experimental: {
-    appDir: false,
-  },
+  // Disable static export to enable API routes
+  trailingSlash: false,
+  exportPathMap: undefined,
 }
 
 module.exports = nextConfig
