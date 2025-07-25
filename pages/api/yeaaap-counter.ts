@@ -1,11 +1,7 @@
-// @ts-ignore
 import type { NextApiRequest, NextApiResponse } from 'next'
-// @ts-ignore
-import * as fs from 'fs'
-// @ts-ignore
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 
-// @ts-ignore
 const COUNTER_FILE = path.join(process.cwd(), 'data', 'yeaaap-counter.json')
 
 // Ensure data directory exists
