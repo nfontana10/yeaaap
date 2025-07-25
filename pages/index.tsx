@@ -67,7 +67,7 @@ export default function Home() {
     <Layout>
       <Head>
         <title>YEAAAAAAAAP!</title>
-        <meta name="description" content="One big ol' Yeaaap party" />
+        <meta name="description" content="One big ol' Yeaaap party with global counter!" />
         <link rel="icon" href="/henry-favicon.png" />
       </Head>
 
