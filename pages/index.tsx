@@ -62,7 +62,7 @@ export default function Home() {
       </Head>
 
       <div className="home">
-        <h1 className="title">YEAAAAAAAAP! 🚀 GLOBAL COUNTER ACTIVE</h1>
+        <h1 className="title">🚀 YEAAAAAAAAP! GLOBAL COUNTER IS LIVE 🚀</h1>
         <div className="crazy_images">
           <div className="left">
             <h2 className="meet_our_founders">Meet Our Founders...</h2>
@@ -94,9 +94,10 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <button onClick={yeaaapSound.play}>Yeaaap!</button>
+          <button onClick={yeaaapSound.play}>🚀 YEAAAAAP! 🚀</button>
           <p>You have yeappped {yeaaapCounter.count} times.</p>
           <p>🌍 Global yeaaaps: {yeaaapCounter.globalCount.toLocaleString()}</p>
+          <p style={{color: 'red', fontWeight: 'bold'}}>🔥 GLOBAL COUNTER IS WORKING! 🔥</p>
           <audio src="require(../assets/yeap_sound.mp3)"></audio>
         </div>
       </div>
