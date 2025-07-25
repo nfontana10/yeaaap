@@ -25,11 +25,21 @@ const useYeaaapCounter = () => {
 
   const fetchGlobalCount = async () => {
     try {
+      // Try to fetch from API first
       const response = await fetch('/api/yeaaap-counter')
-      const data = await response.json()
-      setGlobalCount(data.count)
+      if (response.ok) {
+        const data = await response.json()
+        setGlobalCount(data.count)
+      } else {
+        // Fallback to localStorage
+        const stored = localStorage.getItem('globalYeaaapCount')
+        setGlobalCount(stored ? parseInt(stored) : 0)
+      }
     } catch (error) {
       console.error('Error fetching global count:', error)
+      // Fallback to localStorage
+      const stored = localStorage.getItem('globalYeaaapCount')
+      setGlobalCount(stored ? parseInt(stored) : 0)
     } finally {
       setIsLoading(false)
     }
@@ -44,10 +54,21 @@ const useYeaaapCounter = () => {
       const response = await fetch('/api/yeaaap-counter', {
         method: 'POST',
       })
-      const data = await response.json()
-      setGlobalCount(data.count)
+      if (response.ok) {
+        const data = await response.json()
+        setGlobalCount(data.count)
+      } else {
+        // Fallback: increment local storage
+        const currentGlobal = globalCount + 1
+        setGlobalCount(currentGlobal)
+        localStorage.setItem('globalYeaaapCount', currentGlobal.toString())
+      }
     } catch (error) {
       console.error('Error updating global count:', error)
+      // Fallback: increment local storage
+      const currentGlobal = globalCount + 1
+      setGlobalCount(currentGlobal)
+      localStorage.setItem('globalYeaaapCount', currentGlobal.toString())
     }
   }
 
