@@ -62,7 +62,7 @@ export default function Home() {
       </Head>
 
       <div className="home">
-        <h1 className="title">YEAAAAAAAAP!</h1>
+        <h1 className="title">YEAAAAAAAAP! 🚀 GLOBAL COUNTER ACTIVE</h1>
         <div className="crazy_images">
           <div className="left">
             <h2 className="meet_our_founders">Meet Our Founders...</h2>
