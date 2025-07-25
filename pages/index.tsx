@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>YEAAAAAAAAP! - Global Counter Active</title>
+        <title>YEAAAAAAAAP! - FIXED GLOBAL COUNTER</title>
         <meta name="description" content="One big ol' Yeaaap party with global counter!" />
         <link rel="icon" href="/henry-favicon.png" />
       </Head>
