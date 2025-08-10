@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 // import Image from "next/image";
 import Layout from '../components/Layout'
@@ -14,11 +14,48 @@ const useYeaaapSound = (increaseCounter: Function) => {
 }
 
 const useYeaaapCounter = () => {
-  const [yeaaapCount, updateYeaaapCount] = useState(0)
-  const increaseCount = () => updateYeaaapCount(yeaaapCount + 1)
+  const [globalCount, setGlobalCount] = useState(0)
+  const [sessionCount, setSessionCount] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Load initial global counter value
+  useEffect(() => {
+    fetch('/api/counter')
+      .then(res => res.json())
+      .then(data => {
+        setGlobalCount(data.count)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        console.error('Error loading counter:', error)
+        setIsLoading(false)
+      })
+  }, [])
+
+  const increaseCount = async () => {
+    // Increment session counter immediately
+    setSessionCount(prev => prev + 1)
+    
+    // Increment global counter via API
+    try {
+      const response = await fetch('/api/counter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      setGlobalCount(data.count)
+    } catch (error) {
+      console.error('Error incrementing counter:', error)
+    }
+  }
+
   return {
-    count: yeaaapCount,
+    globalCount,
+    sessionCount,
     increase: increaseCount,
+    isLoading,
   }
 }
 
@@ -68,7 +105,15 @@ export default function Home() {
         </div>
         <div>
           <button onClick={yeaaapSound.play}>Yeaaap!</button>
-          <p>You have yeappped {yeaaapCounter.count} times.</p>
+          <div className="counter-display">
+            <p>You have yeaaaped {yeaaapCounter.sessionCount} times this session!</p>
+            <p>
+              {yeaaapCounter.isLoading 
+                ? 'Loading global yeaaap count...' 
+                : `The world has yeaaaped ${yeaaapCounter.globalCount} times total!`
+              }
+            </p>
+          </div>
           <audio src="require(../assets/yeap_sound.mp3)"></audio>
         </div>
       </div>
